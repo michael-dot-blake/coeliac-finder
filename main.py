@@ -214,7 +214,18 @@ def get_user():
     resp.content_type = "application/json"
     return resp
     
+@app.route('/changepassword')
+def change_password():
+    id_token = request.cookies.get("token")
+    auth = firebase.auth()
+    user = auth.get_account_info(id_token)
+    user_email = user['users'][0]['email']
+    auth.send_password_reset_email(user_email)
 
+    resp = make_response("Success")
+    resp.status_code = 200
+    return resp
+    
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
     # Engine, a webserver process such as Gunicorn will serve the app. This
