@@ -228,15 +228,35 @@ def change_password():
 
 @app.route('/deleteaccount')
 def delete_accout():
-    id_token = request.cookies.get("token")
-    auth = firebase.auth()
-    user = auth.get_account_info(id_token)
+    try:
+        id_token = request.cookies.get("token")
+        auth = firebase.auth()
+        user = auth.get_account_info(id_token)
+        userID = user['users'][0]['localId']
+        targetUser = Users.query.filter_by(id=userID).first()
 
-    auth.delete_user_account(id_token)
+        # Delete from Firebase
+        auth.delete_user_account(id_token)
 
-    resp = make_response("Success")
-    resp.status_code = 200
-    return resp
+        # Delete from CloudSQL
+        db.session.delete(targetUser)
+        db.session.commit()
+
+        resp = make_response("Success")
+        resp.status_code = 200
+        return resp
+    except Exception as e:
+        error_json = e.args[1]
+        error = json.loads(error_json)['error']
+        print(error['message'])
+
+        switcher = {
+            "CREDENTIAL_TOO_OLD_LOGIN_AGAIN": "Credentials too old"
+        }
+        resp = make_response(switcher.get(
+            error['message'], "Error on switch (" + error['message'] + "). Please report to Admin"))
+        resp.status_code = 400
+        return resp
     
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

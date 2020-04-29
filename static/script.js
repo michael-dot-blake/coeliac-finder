@@ -185,6 +185,30 @@ $("#changePasswordResend").click(function(){
     })
 });
 
+// Change password
+$("#deleteAccountSubmit").click(function(){
+    $.ajax({
+        url: "deleteaccount",
+        method: "GET",
+        beforeSend: function() {
+            $("#changePasswordStatus").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>');
+        },
+        success: function(data) {
+            $("#deleteAccountStatus").html('<div class=\"alert alert-success\">' + data + '</div>');
+
+            location.reload();
+        },
+        error: function(data) {
+            if(data.responseText.startsWith("Credentials")) {
+                $("#deleteAccountStatus").html("<div class=\"alert alert-warning\">" + data.responseText + ", please relogin and try again</div>");
+            }
+            else {
+                $("#deleteAccountStatus").html("<div class=\"alert alert-danger\">" + data.responseText + "</div>");
+            }
+        },
+    })
+});
+
 // +=============================================================+
 // |                                                             |
 // |                       Modal Handling                        |
