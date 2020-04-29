@@ -225,6 +225,18 @@ def change_password():
     resp = make_response("Success")
     resp.status_code = 200
     return resp
+
+@app.route('/deleteaccount')
+def delete_accout():
+    id_token = request.cookies.get("token")
+    auth = firebase.auth()
+    user = auth.get_account_info(id_token)
+
+    auth.delete_user_account(id_token)
+
+    resp = make_response("Success")
+    resp.status_code = 200
+    return resp
     
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
