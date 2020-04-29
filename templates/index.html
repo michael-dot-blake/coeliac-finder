@@ -167,8 +167,8 @@
                             <input class="form-check-input" type="checkbox" value="" id="checkTermsAndConditions"
                                 required>
                             <label class="form-check-label" for="checkTermsAndConditions">
-                                I agree to the <a href="#" data-toggle="modal"
-                                    data-target="#termsAndConditionsModal">terms and conditions</a>
+                                I agree to the <a href="#" data-toggle="modal" data-target="#termsAndConditionsModal"
+                                    onclick="hideModal('signupModal')">terms and conditions</a>
                             </label>
                             <div class="invalid-feedback">
                                 You must agree before submitting.
@@ -326,6 +326,57 @@
         </div>
     </div>
     <!-- End deleteAccountModal -->
+
+    <!-- Start termsAndConditionsModal -->
+    <div class="modal fade" id="termsAndConditionsModal" tabindex="-1" role="dialog"
+        aria-labelledby="termsAndConditionsModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="termsAndConditionsModalLabel">Terms and Conditions</h5>
+                    <button type="button" class="close" data-dismiss="modal" data-toggle="modal" data-target="#signupModal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris imperdiet felis in cursus
+                        pellentesque. Nunc ullamcorper magna sit amet ipsum ultricies vestibulum at in metus. Etiam
+                        laoreet lacinia lacus nec bibendum. Nulla scelerisque lacus at ipsum sollicitudin feugiat.
+                        Quisque auctor lacinia dapibus. Phasellus blandit ex eu sapien porttitor luctus. Interdum et
+                        malesuada fames ac ante ipsum primis in faucibus. Phasellus non mattis ligula.</p>
+                    <p>Suspendisse convallis orci vitae sollicitudin ultrices. Vivamus nec posuere mauris. Proin
+                        ultrices lacus felis, ut consectetur erat hendrerit sed. Vestibulum pretium nunc ex, quis
+                        consequat dui faucibus eget. Mauris maximus eget odio quis pharetra. Aenean porta nisl
+                        condimentum diam dapibus congue. Ut iaculis leo erat, vitae porta mauris sagittis sed.</p>
+                    <p>Etiam scelerisque, nisl nec ultricies congue, elit ipsum maximus turpis, ac cursus magna purus ac
+                        felis. Nullam tincidunt consectetur sem, vel interdum sem pretium quis. Phasellus sodales,
+                        turpis in mattis convallis, enim massa tristique ante, vitae tincidunt leo urna eu libero. Duis
+                        eu maximus felis, sit amet vestibulum erat. Fusce sed ipsum nisi. Mauris non turpis ac ipsum
+                        imperdiet sodales. Etiam at nibh ultrices, tempus justo accumsan, facilisis dolor. Donec ut
+                        sodales purus.</p>
+                    <p>Praesent semper lorem dui, pretium commodo nibh mattis sit amet. Vestibulum ante ipsum primis in
+                        faucibus orci luctus et ultrices posuere cubilia curae; Etiam eget turpis sit amet nisl eleifend
+                        tincidunt vel sit amet massa. Sed mollis erat vitae feugiat porttitor. Vivamus auctor diam
+                        lorem. Maecenas nisi libero, suscipit at urna ac, auctor scelerisque enim. Phasellus tortor
+                        justo, sagittis ac bibendum non, volutpat a sapien. Ut sed lobortis lectus. Duis vestibulum
+                        elementum arcu, vitae tempor magna semper a. Etiam molestie orci at urna elementum, sit amet
+                        mollis odio venenatis. Curabitur fermentum est vel lorem elementum lacinia. Phasellus non
+                        feugiat tellus. Proin efficitur metus a libero consectetur viverra. Aenean id feugiat lacus.
+                        Quisque rhoncus id odio eu consequat. Maecenas maximus sollicitudin ante cursus pulvinar.</p>
+                    <p>Donec tincidunt quam orci. Fusce mattis commodo auctor. Fusce a maximus tortor. Integer non
+                        blandit quam. Morbi sit amet turpis pulvinar, tincidunt quam quis, sagittis nulla. Fusce
+                        ultrices magna metus, id luctus arcu mattis ac. Morbi a erat facilisis, facilisis eros et,
+                        mollis erat. Ut ornare sodales velit id sodales. Vivamus finibus lorem facilisis, dictum ex
+                        interdum, eleifend sapien. Suspendisse potenti. Aenean sollicitudin lacinia massa id congue.
+                        Donec feugiat eu neque eleifend cursus.</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#signupModal" onclick="hideModal('termsAndConditionsModal')">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End termsAndConditionsModal -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
