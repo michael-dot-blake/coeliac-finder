@@ -9,6 +9,7 @@ import os
 from urllib.error import HTTPError
 import json
 from flask_sqlalchemy import SQLAlchemy
+from flask.json import jsonify
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "coeliacfinder-ad558fd97c1d.json"
 
@@ -182,12 +183,37 @@ def forgotPassword():
         resp.status_code = 400
         return resp
 
-@app.route('/users', methods = ['GET'])
+@app.route('/changedetails', methods = ['GET', 'POST'])
 def get_user():
+    id_token = request.cookies.get("token")
+    auth = firebase.auth()
+    user = auth.get_account_info(id_token)
+    userID = user['users'][0]['localId']
+    targetUser = Users.query.filter_by(id=userID).first()
 
-    return
+    if request.method == 'POST':
+        if request.form['username'] != "":
+            targetUser.username = request.form['username']
+        if request.form['firstName'] != "":
+            targetUser.firstName = request.form['firstName']
+        if request.form['lastName'] != "":
+            targetUser.firstName = request.form['lastName']
+        
+        db.session.commit()
 
+        resp = make_response("Success")
+        resp.status_code = 200
+        return resp
 
+    resp = make_response(jsonify(
+        username=targetUser.username,
+        firstName=targetUser.firstName,
+        lastName=targetUser.lastName
+    ))
+    resp.status_code = 200
+    resp.content_type = "application/json"
+    return resp
+    
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
