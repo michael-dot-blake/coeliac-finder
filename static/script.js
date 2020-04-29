@@ -160,6 +160,17 @@ $("#changeDetailsSubmit").click(function(){
     })
 });
 
+// Change acount details submit
+$("#changePasswordButton").click(function(){
+    $.ajax({
+        url: "changepassword",
+        method: "GET",
+        success: function(data) {
+            $("#changePasswordStatus").html('<div class=\"alert alert-success\">' + data + ', please check your emails</div>')
+        }
+    })
+});
+
 // +=============================================================+
 // |                                                             |
 // |                       Modal Handling                        |
