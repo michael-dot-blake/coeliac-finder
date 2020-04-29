@@ -97,7 +97,7 @@ $("#forgotPasswordSubmit").click(function(){
             }
         },
         success: function(data) {
-            $("#forgotPasswordStatus").html("<div class=\"alert alert-success\">" + data + "</div>")
+            $("#forgotPasswordStatus").html("<div class=\"alert alert-success\">" + data + ", Please check your email for a password reset link</div>")
         }
     })
 });
