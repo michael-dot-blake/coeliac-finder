@@ -4,3 +4,5 @@ google-auth==1.14.0
 requests==2.23.0
 pyrebase4==4.3.0
 flask-api==2.0
+pymysql==0.9.3
+flask-sqlalchemy==2.4.1

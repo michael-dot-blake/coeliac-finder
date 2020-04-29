@@ -8,6 +8,7 @@ import pyrebase
 import os
 from urllib.error import HTTPError
 import json
+from flask_sqlalchemy import SQLAlchemy
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "coeliacfinder-ad558fd97c1d.json"
 
@@ -19,13 +20,36 @@ config = {
 }
 
 firebase = pyrebase.initialize_app(config)
-
-app = Flask(__name__)
-
-datastore_client = datastore.Client()
-
 firebase_request_adapter = requests.Request()
 
+app = Flask(__name__)
+app.config['FLASK_APP'] = "main.py"
+
+# +=============================================================+
+# |                                                             |
+# |                          SQLAchemy                          |
+# |                                                             |
+# +=============================================================+
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://dbuser:6S#2WV6S%QD&-uJF@34.87.224.162/coeliacfinder'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+class Users(db.Model):
+    id = db.Column(db.String(32), primary_key=True)
+    email = db.Column(db.String(320), unique=True, nullable=False)
+    username = db.Column(db.String(24), unique=True, nullable=False)
+    firstName = db.Column(db.String(24))
+    lastName = db.Column(db.String(24))
+
+db.create_all()
+
+# +=============================================================+
+# |                                                             |
+# |                            Routes                           |
+# |                                                             |
+# +=============================================================+
 
 @app.route('/')
 def root():
@@ -49,16 +73,10 @@ def root():
 
             # Get a reference to the auth service
             auth = firebase.auth()
-
             user = auth.get_account_info(id_token)
-        
+
             print("\nUserID = " + user['users'][0]['localId'])
             print("\nEmail = " + user['users'][0]['email'])
-
-            # db = firebase.database()
-            # users = db.child("users").get(id_token)
-            # print("\n Users = ")
-            # print(users.val())
         except ValueError as exc:
             # This will be raised if the token is expired or any other
             # verification checks fail.
@@ -77,8 +95,7 @@ def login():
 
     # Log the user in
     try:
-        user = auth.sign_in_with_email_and_password(
-            request.form['email'], request.form['password'])
+        user = auth.sign_in_with_email_and_password(request.form['email'], request.form['password'])
 
         resp = make_response("Success")  # , redirect('/')
         resp.status_code = 200
@@ -102,30 +119,21 @@ def login():
 
 @app.route('/signup', methods=['POST'])
 def signup():
-    # Get a reference to the auth service
-    auth = firebase.auth()
+    
 
     # Create user account
     try:
-        auth.create_user_with_email_and_password(
-            request.form['email'], request.form['password'])
+        # Get a reference to the auth service
+        auth = firebase.auth()
+        auth.create_user_with_email_and_password(request.form['email'], request.form['password'])
 
-        # Get a reference to the database service
-        db = firebase.database()
+        user = auth.sign_in_with_email_and_password(request.form['email'], request.form['password'])
 
-        # data to save
-        data = {
-            "firstName": request.form['firstName'],
-            "lastName": request.form['lastName'],
-            "username": request.form['username']
-        }
+        # Inset user data into db
+        data = Users(id=user['localId'], email=request.form['email'], username=request.form['username'], firstName=request.form['firstName'], lastName=request.form['lastName'])
 
-        # Log the user in
-        user = auth.sign_in_with_email_and_password(
-            request.form['email'], request.form['password'])
-
-        # Pass the user's idToken to the push method
-        results = db.child("users").push(data, user['idToken'])
+        db.session.add(data)
+        db.session.commit()
 
         resp = make_response("Success")
         resp.status_code = 200
@@ -173,6 +181,12 @@ def forgotPassword():
             error['message'], "Error on switch (" + error['message'] + "). Please report to Admin"))
         resp.status_code = 400
         return resp
+
+@app.route('/users', methods = ['GET'])
+def get_user():
+
+    return
+
 
 
 if __name__ == '__main__':
