@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <title>Coeliac Finder</title>
 
@@ -16,33 +15,26 @@
 </head>
 
 <nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand">Coeliac Finder</a>
-    {% if user_data: %}
+    <a class="navbar-brand">Coeliac Finder</a> {% if user_data: %}
     <div class="dropdown">
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ user_data.email }}
         </button>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" id="changePasswordButton" href="#" data-toggle="modal"
-                data-target="#changePasswordModal">Change password</a>
-            <a class="dropdown-item" id="changeDetailsButton" href="#" data-toggle="modal"
-                data-target="#changeDetailsModal">Change account details</a>
+            <a class="dropdown-item" id="changePasswordButton" href="#" data-toggle="modal" data-target="#changePasswordModal">Change password</a>
+            <a class="dropdown-item" id="changeDetailsButton" href="#" data-toggle="modal" data-target="#changeDetailsModal">Change account details</a>
             <a class="dropdown-item" href="logout">Logout</a>
         </div>
     </div>
     {% else: %}
-    <button id="btnLogin" type="button" class="btn btn-outline-secondary" data-toggle="modal"
-        data-target="#loginModal">Login</button>
-    {% endif %}
+    <button id="btnLogin" type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#loginModal">Login</button> {% endif %}
 </nav>
 
 <body>
     <div style="height: calc(100% - 56px); width: 100%; position: absolute;" id="map"></div>
 
     <!-- Start loginModal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form id="loginForm" action="/login" method="post" class="needs-validation">
@@ -60,34 +52,28 @@
                         <div class="form-row">
                             <div class="mb-3 col-md-12">
                                 <label for="loginModalEmail">Email</label>
-                                <input type="text" class="form-control submitOnEnter" name="email" id="loginModalEmail"
-                                    maxlength="320" placeholder="Email" required>
+                                <input type="text" class="form-control submitOnEnter" name="email" id="loginModalEmail" maxlength="320" placeholder="Email" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="mb-3 col-md-12">
                                 <label for="loginModalPassword">Password</label>
-                                <input type="password" class="form-control submitOnEnter" name="password"
-                                    id="loginModalPassword" placeholder="Password" required>
+                                <input type="password" class="form-control submitOnEnter" name="password" id="loginModalPassword" placeholder="Password" required>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <p><a href="#" data-toggle="modal" data-target="#signupModal"
-                                    onclick="hideModal('loginModal')">Create an
+                            <p><a href="#" data-toggle="modal" data-target="#signupModal" onclick="hideModal('loginModal')">Create an
                                     account</a></p>
-                            <p><a href="#" data-toggle="modal" data-target="#forgotPasswordModal"
-                                    onclick="hideModal('loginModal')">Forgot
+                            <p><a href="#" data-toggle="modal" data-target="#forgotPasswordModal" onclick="hideModal('loginModal')">Forgot
                                     password</a></p>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="checkRemeberMe"
-                                disabled="true">
+                            <input class="form-check-input" type="checkbox" value="" id="checkRemeberMe" disabled="true">
                             <label class="form-check-label" for="checkRemeberMe">Remember me</label>
                         </div>
-                        <button type="button" form="loginForm" class="btn btn-primary" name="loginSubmit"
-                            id="loginSubmit" value="Submit">Submit</button>
+                        <button type="button" form="loginForm" class="btn btn-primary" name="loginSubmit" id="loginSubmit" value="Submit">Submit</button>
                     </div>
                 </form>
             </div>
@@ -96,8 +82,7 @@
     <!-- End loginModal -->
 
     <!-- Start changeDetailsModal -->
-    <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form id="signupForm" action="signup" method="post" class="needs-validation">
@@ -115,27 +100,23 @@
                         <div class="form-row">
                             <div class="mb-3 col-md-6">
                                 <label for="signupFirstName">First Name</label>
-                                <input type="text" class="form-control" id="signupFirstName" maxlength="24"
-                                    placeholder="First Name" name="firstName" required>
+                                <input type="text" class="form-control" id="signupFirstName" maxlength="24" placeholder="First Name" name="firstName" required>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="signupLastName">Last Name</label>
-                                <input type="text" class="form-control" id="signupLastName" maxlength="24"
-                                    placeholder="Last Name" name="lastName" required>
+                                <input type="text" class="form-control" id="signupLastName" maxlength="24" placeholder="Last Name" name="lastName" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="mb-3 col-md-12">
                                 <label for="signupUsername">Username</label>
-                                <input type="text" class="form-control" id="signupUsername" maxlength="24"
-                                    placeholder="Username" name="username" required>
+                                <input type="text" class="form-control" id="signupUsername" maxlength="24" placeholder="Username" name="username" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="mb-3 col-md-12">
                                 <label for="signupEmail">Email</label>
-                                <input type="email" class="form-control" id="signupEmail" maxlength="320"
-                                    placeholder="Email" name="email" required>
+                                <input type="email" class="form-control" id="signupEmail" maxlength="320" placeholder="Email" name="email" required>
                                 <small id="signupEmailHelp" class="form-text text-muted">We'll never share
                                     your email with anyone else.</small>
                             </div>
@@ -143,8 +124,7 @@
                         <div class="form-row">
                             <div class="mb-3 col-md-6">
                                 <label for="signupPassword">Password</label>
-                                <input type="password" class="form-control" id="signupPassword" placeholder="Password"
-                                    minlength="8" maxlength="64" name="password" required>
+                                <input type="password" class="form-control" id="signupPassword" placeholder="Password" minlength="8" maxlength="64" name="password" required>
                                 <!--onkeyup="validateConfirmPassword('signupModal')"-->
                                 <small id="signupPasswordHelp" class="form-text text-muted">Password must be
                                     at-least 8 characters long and contain a lowercase letter, an uppercase letter, and
@@ -152,8 +132,7 @@
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="signupConfirmPassword">Confirm Password</label>
-                                <input type="password" class="form-control" id="signupConfirmPassword"
-                                    placeholder="Confirm Password" name="confirmPassword" required>
+                                <input type="password" class="form-control" id="signupConfirmPassword" placeholder="Confirm Password" name="confirmPassword" required>
                                 <!--onkeyup="validateConfirmPassword('signupModal')"-->
                                 <div id="signupPasswordMatchError" class="invalid-feedback">
                                     Passwords must match.
@@ -164,8 +143,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="checkTermsAndConditions"
-                                required>
+                            <input class="form-check-input" type="checkbox" value="" id="checkTermsAndConditions" required>
                             <label class="form-check-label" for="checkTermsAndConditions">
                                 I agree to the <a href="#" data-toggle="modal" data-target="#termsAndConditionsModal"
                                     onclick="hideModal('signupModal')">terms and conditions</a>
@@ -174,8 +152,7 @@
                                 You must agree before submitting.
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary" name="signupSubmit" form='signupForm'
-                            id='signupSubmit' value="Submit">Submit</button>
+                        <button type="button" class="btn btn-primary" name="signupSubmit" form='signupForm' id='signupSubmit' value="Submit">Submit</button>
                     </div>
                 </form>
             </div>
@@ -184,8 +161,7 @@
     <!-- End createAccountModal -->
 
     <!-- Start forgotPasswordModal -->
-    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog"
-        aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form id="forgotPasswordForm" class="needs-validation" action="forgotpassword" method="POST" novalidate>
@@ -202,15 +178,13 @@
                         <div class="form-row">
                             <div class="mb-3 col-md-12">
                                 <label for="forgotPasswordModalEmail">Email</label>
-                                <input type="text" class="form-control" id="forgotPasswordEmail" placeholder="Email"
-                                    name="email" required>
+                                <input type="text" class="form-control" id="forgotPasswordEmail" placeholder="Email" name="email" required>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" name="forgotPasswordSubmit"
-                            id="forgotPasswordSubmit">Submit</button>
+                        <button type="button" class="btn btn-primary" name="forgotPasswordSubmit" id="forgotPasswordSubmit">Submit</button>
                     </div>
                 </form>
             </div>
@@ -219,8 +193,7 @@
     <!-- End forgotPasswordModal -->
 
     <!-- Start changeDetailsModal -->
-    <div class="modal fade" id="changeDetailsModal" tabindex="-1" role="dialog"
-        aria-labelledby="changeDetailsModalLabel" aria-hidden="true">
+    <div class="modal fade" id="changeDetailsModal" tabindex="-1" role="dialog" aria-labelledby="changeDetailsModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form id="changeDetailsForm" action="changeDetails" method="post" class="needs-validation">
@@ -238,29 +211,23 @@
                         <div class="form-row">
                             <div class="mb-3 col-md-6">
                                 <label for="changeDetailsFirstName">First Name</label>
-                                <input type="text" class="form-control" id="changeDetailsFirstName" maxlength="24"
-                                    placeholder="First Name" name="firstName" required>
+                                <input type="text" class="form-control" id="changeDetailsFirstName" maxlength="24" placeholder="First Name" name="firstName" required>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="changeDetailsLastName">Last Name</label>
-                                <input type="text" class="form-control" id="changeDetailsLastName" maxlength="24"
-                                    placeholder="Last Name" name="lastName" required>
+                                <input type="text" class="form-control" id="changeDetailsLastName" maxlength="24" placeholder="Last Name" name="lastName" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="mb-3 col-md-12">
                                 <label for="changeDetailsUsername">Username</label>
-                                <input type="text" class="form-control" id="changeDetailsUsername" maxlength="24"
-                                    placeholder="Username" name="username" required>
+                                <input type="text" class="form-control" id="changeDetailsUsername" maxlength="24" placeholder="Username" name="username" required>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-danger" name="deleteAccount" id='deleteAccountButton'
-                            data-toggle="modal" data-target="#deleteAccountModal"
-                            onclick='hideModal("changeDetailsModal")' ;>Delete Account</button>
-                        <button type="button" class="btn btn-primary" name="changeDetailsSubmit"
-                            form='changeDetailsForm' id='changeDetailsSubmit'>Submit</button>
+                        <button type="button" class="btn btn-danger" name="deleteAccount" id='deleteAccountButton' data-toggle="modal" data-target="#deleteAccountModal" onclick='hideModal("changeDetailsModal")' ;>Delete Account</button>
+                        <button type="button" class="btn btn-primary" name="changeDetailsSubmit" form='changeDetailsForm' id='changeDetailsSubmit'>Submit</button>
                     </div>
                 </form>
             </div>
@@ -269,8 +236,7 @@
     <!-- End changeDetailsModal -->
 
     <!-- Start changePasswordModal -->
-    <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog"
-        aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -292,8 +258,7 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" name="changePasswordResend"
-                        id="changePasswordResend">Resend</button>
+                    <button type="button" class="btn btn-primary" name="changePasswordResend" id="changePasswordResend">Resend</button>
                 </div>
             </div>
         </div>
@@ -301,8 +266,7 @@
     <!-- End changePasswordModal -->
 
     <!-- Start deleteAccountModal -->
-    <div class="modal fade" id="deleteAccountModal" tabindex="-1" role="dialog"
-        aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteAccountModal" tabindex="-1" role="dialog" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -318,8 +282,7 @@
                     <p>Are you sure you want to do this?</p>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger" name="deleteAccountSubmit"
-                        id="deleteAccountSubmit">Yes</button>
+                    <button type="button" class="btn btn-danger" name="deleteAccountSubmit" id="deleteAccountSubmit">Yes</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
                 </div>
             </div>
@@ -328,8 +291,7 @@
     <!-- End deleteAccountModal -->
 
     <!-- Start termsAndConditionsModal -->
-    <div class="modal fade" id="termsAndConditionsModal" tabindex="-1" role="dialog"
-        aria-labelledby="termsAndConditionsModalLabel" aria-hidden="true">
+    <div class="modal fade" id="termsAndConditionsModal" tabindex="-1" role="dialog" aria-labelledby="termsAndConditionsModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -339,36 +301,20 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris imperdiet felis in cursus
-                        pellentesque. Nunc ullamcorper magna sit amet ipsum ultricies vestibulum at in metus. Etiam
-                        laoreet lacinia lacus nec bibendum. Nulla scelerisque lacus at ipsum sollicitudin feugiat.
-                        Quisque auctor lacinia dapibus. Phasellus blandit ex eu sapien porttitor luctus. Interdum et
-                        malesuada fames ac ante ipsum primis in faucibus. Phasellus non mattis ligula.</p>
-                    <p>Suspendisse convallis orci vitae sollicitudin ultrices. Vivamus nec posuere mauris. Proin
-                        ultrices lacus felis, ut consectetur erat hendrerit sed. Vestibulum pretium nunc ex, quis
-                        consequat dui faucibus eget. Mauris maximus eget odio quis pharetra. Aenean porta nisl
-                        condimentum diam dapibus congue. Ut iaculis leo erat, vitae porta mauris sagittis sed.</p>
-                    <p>Etiam scelerisque, nisl nec ultricies congue, elit ipsum maximus turpis, ac cursus magna purus ac
-                        felis. Nullam tincidunt consectetur sem, vel interdum sem pretium quis. Phasellus sodales,
-                        turpis in mattis convallis, enim massa tristique ante, vitae tincidunt leo urna eu libero. Duis
-                        eu maximus felis, sit amet vestibulum erat. Fusce sed ipsum nisi. Mauris non turpis ac ipsum
-                        imperdiet sodales. Etiam at nibh ultrices, tempus justo accumsan, facilisis dolor. Donec ut
-                        sodales purus.</p>
-                    <p>Praesent semper lorem dui, pretium commodo nibh mattis sit amet. Vestibulum ante ipsum primis in
-                        faucibus orci luctus et ultrices posuere cubilia curae; Etiam eget turpis sit amet nisl eleifend
-                        tincidunt vel sit amet massa. Sed mollis erat vitae feugiat porttitor. Vivamus auctor diam
-                        lorem. Maecenas nisi libero, suscipit at urna ac, auctor scelerisque enim. Phasellus tortor
-                        justo, sagittis ac bibendum non, volutpat a sapien. Ut sed lobortis lectus. Duis vestibulum
-                        elementum arcu, vitae tempor magna semper a. Etiam molestie orci at urna elementum, sit amet
-                        mollis odio venenatis. Curabitur fermentum est vel lorem elementum lacinia. Phasellus non
-                        feugiat tellus. Proin efficitur metus a libero consectetur viverra. Aenean id feugiat lacus.
-                        Quisque rhoncus id odio eu consequat. Maecenas maximus sollicitudin ante cursus pulvinar.</p>
-                    <p>Donec tincidunt quam orci. Fusce mattis commodo auctor. Fusce a maximus tortor. Integer non
-                        blandit quam. Morbi sit amet turpis pulvinar, tincidunt quam quis, sagittis nulla. Fusce
-                        ultrices magna metus, id luctus arcu mattis ac. Morbi a erat facilisis, facilisis eros et,
-                        mollis erat. Ut ornare sodales velit id sodales. Vivamus finibus lorem facilisis, dictum ex
-                        interdum, eleifend sapien. Suspendisse potenti. Aenean sollicitudin lacinia massa id congue.
-                        Donec feugiat eu neque eleifend cursus.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris imperdiet felis in cursus pellentesque. Nunc ullamcorper magna sit amet ipsum ultricies vestibulum at in metus. Etiam laoreet lacinia lacus nec bibendum. Nulla scelerisque
+                        lacus at ipsum sollicitudin feugiat. Quisque auctor lacinia dapibus. Phasellus blandit ex eu sapien porttitor luctus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Phasellus non mattis ligula.</p>
+                    <p>Suspendisse convallis orci vitae sollicitudin ultrices. Vivamus nec posuere mauris. Proin ultrices lacus felis, ut consectetur erat hendrerit sed. Vestibulum pretium nunc ex, quis consequat dui faucibus eget. Mauris maximus eget odio
+                        quis pharetra. Aenean porta nisl condimentum diam dapibus congue. Ut iaculis leo erat, vitae porta mauris sagittis sed.</p>
+                    <p>Etiam scelerisque, nisl nec ultricies congue, elit ipsum maximus turpis, ac cursus magna purus ac felis. Nullam tincidunt consectetur sem, vel interdum sem pretium quis. Phasellus sodales, turpis in mattis convallis, enim massa tristique
+                        ante, vitae tincidunt leo urna eu libero. Duis eu maximus felis, sit amet vestibulum erat. Fusce sed ipsum nisi. Mauris non turpis ac ipsum imperdiet sodales. Etiam at nibh ultrices, tempus justo accumsan, facilisis dolor. Donec
+                        ut sodales purus.</p>
+                    <p>Praesent semper lorem dui, pretium commodo nibh mattis sit amet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Etiam eget turpis sit amet nisl eleifend tincidunt vel sit amet massa. Sed mollis
+                        erat vitae feugiat porttitor. Vivamus auctor diam lorem. Maecenas nisi libero, suscipit at urna ac, auctor scelerisque enim. Phasellus tortor justo, sagittis ac bibendum non, volutpat a sapien. Ut sed lobortis lectus. Duis vestibulum
+                        elementum arcu, vitae tempor magna semper a. Etiam molestie orci at urna elementum, sit amet mollis odio venenatis. Curabitur fermentum est vel lorem elementum lacinia. Phasellus non feugiat tellus. Proin efficitur metus a libero
+                        consectetur viverra. Aenean id feugiat lacus. Quisque rhoncus id odio eu consequat. Maecenas maximus sollicitudin ante cursus pulvinar.</p>
+                    <p>Donec tincidunt quam orci. Fusce mattis commodo auctor. Fusce a maximus tortor. Integer non blandit quam. Morbi sit amet turpis pulvinar, tincidunt quam quis, sagittis nulla. Fusce ultrices magna metus, id luctus arcu mattis ac. Morbi
+                        a erat facilisis, facilisis eros et, mollis erat. Ut ornare sodales velit id sodales. Vivamus finibus lorem facilisis, dictum ex interdum, eleifend sapien. Suspendisse potenti. Aenean sollicitudin lacinia massa id congue. Donec
+                        feugiat eu neque eleifend cursus.</p>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#signupModal" onclick="hideModal('termsAndConditionsModal')">Close</button>
@@ -380,19 +326,13 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.0.min.js"
-        integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <script src="{{ url_for('static', filename='map.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5ptybqH1F-VvomPE-srz5x9tOc8vQ-Bk&callback=initMap"
-        async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5ptybqH1F-VvomPE-srz5x9tOc8vQ-Bk&callback=initMap" async defer></script>
 </body>
 
 </html>

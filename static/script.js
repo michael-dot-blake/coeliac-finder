@@ -22,7 +22,7 @@
 // +=============================================================+
 
 // Login
-$("#loginSubmit").click(function () {
+$("#loginSubmit").click(function() {
     $.ajax({
         url: "login",
         method: "POST",
@@ -30,18 +30,17 @@ $("#loginSubmit").click(function () {
             email: $("#loginModalEmail").val(),
             password: $("#loginModalPassword").val()
         },
-        beforeSend: function () {
+        beforeSend: function() {
             $("#loginStatus").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>')
         },
-        error: function (data) {
+        error: function(data) {
             if (data.responseText.startsWith("Too")) {
                 $("#loginStatus").html("<div class=\"alert alert-warning\">" + data.responseText + "</div>")
-            }
-            else {
+            } else {
                 $("#loginStatus").html("<div class=\"alert alert-danger\">" + data.responseText + "</div>")
             }
         },
-        success: function (data) {
+        success: function(data) {
             $("#loginStatus").html("<div class=\"alert alert-success\">" + data + "</div>")
             location.reload()
         }
@@ -49,7 +48,7 @@ $("#loginSubmit").click(function () {
 });
 
 // Signup
-$("#signupSubmit").click(function () {
+$("#signupSubmit").click(function() {
     $.ajax({
         url: "signup",
         method: "POST",
@@ -60,70 +59,68 @@ $("#signupSubmit").click(function () {
             lastName: $("#signupLastName").val(),
             username: $("#signupUsername").val(),
         },
-        beforeSend: function () {
+        beforeSend: function() {
             $("#signupStatus").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>')
         },
-        error: function (data) {
+        error: function(data) {
             if (data.responseText.startsWith("Email")) {
                 $("#signupStatus").html("<div class=\"alert alert-warning\">" + data.responseText + "</div>")
-            }
-            else {
+            } else {
                 $("#signupStatus").html("<div class=\"alert alert-danger\">" + data.responseText + "</div>")
             }
         },
-        success: function (data) {
+        success: function(data) {
             $("#signupStatus").html('<div class=\"alert alert-success\">' + data + ', continue to <a href= "#" data-toggle="modal" data-target="#loginModal" onclick=hideModal("signupModal")>Login</a></div>')
         }
     })
 });
 
 // Forgot password
-$("#forgotPasswordSubmit").click(function () {
+$("#forgotPasswordSubmit").click(function() {
     $.ajax({
         url: "forgotpassword",
         method: "POST",
         data: {
             email: $("#forgotPasswordEmail").val(),
         },
-        beforeSend: function () {
+        beforeSend: function() {
             $("#forgotPasswordStatus").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>')
         },
-        error: function (data) {
+        error: function(data) {
             if (data.responseText.startsWith("Email")) {
                 $("#forgotPasswordStatus").html("<div class=\"alert alert-warning\">" + data.responseText + "</div>")
-            }
-            else {
+            } else {
                 $("#forgotPasswordStatus").html("<div class=\"alert alert-danger\">" + data.responseText + "</div>")
             }
         },
-        success: function (data) {
+        success: function(data) {
             $("#forgotPasswordStatus").html("<div class=\"alert alert-success\">" + data + ", Please check your email for a password reset link</div>")
         }
     })
 });
 
 // Change acount details open
-$("#changeDetailsButton").click(function () {
+$("#changeDetailsButton").click(function() {
     $.ajax({
         url: "changedetails",
         dataType: "json",
         method: "GET",
-        beforeSend: function () {
+        beforeSend: function() {
             $("#changeDetailsStatus").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>')
 
-            $("form#changeDetailsForm input[type=text]").each(function () {
+            $("form#changeDetailsForm input[type=text]").each(function() {
                 var input = $(this);
                 input.prop("disabled", true)
             });
         },
-        success: function (data) {
+        success: function(data) {
             // var json = $.parseJSON(data);
 
             $("#changeDetailsUsername").attr('placeholder', data.username)
             $("#changeDetailsFirstName").attr('placeholder', data.firstName)
             $("#changeDetailsLastName").attr('placeholder', data.lastName)
 
-            $("form#changeDetailsForm input[type=text]").each(function () {
+            $("form#changeDetailsForm input[type=text]").each(function() {
                 var input = $(this);
                 input.prop("disabled", false)
             });
@@ -134,7 +131,7 @@ $("#changeDetailsButton").click(function () {
 });
 
 // Change acount details submit
-$("#changeDetailsSubmit").click(function () {
+$("#changeDetailsSubmit").click(function() {
     $.ajax({
         url: "changedetails",
         method: "POST",
@@ -143,66 +140,64 @@ $("#changeDetailsSubmit").click(function () {
             lastName: $("#changeDetailsLastName").val(),
             username: $("#changeDetailsUsername").val(),
         },
-        beforeSend: function () {
+        beforeSend: function() {
             $("#changeDetailsStatus").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>')
         },
-        error: function (data) {
+        error: function(data) {
             if (data.responseText.startsWith("Email")) {
                 $("#changeDetailsStatus").html("<div class=\"alert alert-warning\">" + data.responseText + "</div>")
-            }
-            else {
+            } else {
                 $("#changeDetailsStatus").html("<div class=\"alert alert-danger\">" + data.responseText + "</div>")
             }
         },
-        success: function (data) {
+        success: function(data) {
             $("#changeDetailsStatus").html('<div class=\"alert alert-success\">' + data + '</div>')
         }
     })
 });
 
 // Change password
-$("#changePasswordButton").click(function () {
+$("#changePasswordButton").click(function() {
     $.ajax({
         url: "changepassword",
         method: "GET",
-        success: function (data) {
+        success: function(data) {
             $("#changePasswordStatus").html('<div class=\"alert alert-success\">' + data + ', please check your emails</div>')
         }
     })
 });
 
 // Change password resend
-$("#changePasswordResend").click(function () {
+$("#changePasswordResend").click(function() {
     $.ajax({
         url: "changepassword",
         method: "GET",
-        beforeSend: function () {
+        beforeSend: function() {
             $("#changePasswordStatus").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>')
         },
-        success: function (data) {
+        success: function(data) {
             $("#changePasswordStatus").html('<div class=\"alert alert-success\">' + data + ', please check your emails</div>')
         }
     })
 });
 
 // Change password
-$("#deleteAccountSubmit").click(function () {
+$("#deleteAccountSubmit").click(function() {
     $.ajax({
         url: "deleteaccount",
         method: "GET",
-        beforeSend: function () {
+        beforeSend: function() {
             $("#changePasswordStatus").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>');
         },
-        success: function (data) {
+        success: function(data) {
             $("#deleteAccountStatus").html('<div class=\"alert alert-success\">' + data + '</div>');
 
             location.reload();
         },
-        error: function (data) {
+        error: function(data) {
             if (data.responseText.startsWith("Credentials")) {
                 $("#deleteAccountStatus").html("<div class=\"alert alert-warning\">" + data.responseText + ", please relogin and try again</div>");
-            }
-            else {
+            } else {
                 $("#deleteAccountStatus").html("<div class=\"alert alert-danger\">" + data.responseText + "</div>");
             }
         },
