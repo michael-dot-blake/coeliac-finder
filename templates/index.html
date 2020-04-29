@@ -25,7 +25,7 @@
         </button>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item disabled" href="#">Change password</a>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#changeDetailsModal">Change account details</a>
+            <a class="dropdown-item" id="changeDetailsButton" href="#" data-toggle="modal" data-target="#changeDetailsModal">Change account details</a>
             <a class="dropdown-item" href="logout">Logout</a>
         </div>
     </div>
@@ -252,16 +252,6 @@
                                     placeholder="Username" name="username" required>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="mb-3 col-md-12">
-                                <label for="changeDetailsEmail">Email</label>
-                                <input type="email" class="form-control" id="changeDetailsEmail" maxlength="320"
-                                    placeholder="Email" name="email" required>
-                                <small id="changeDetailsEmailHelp" class="form-text text-muted">We'll never share
-                                    your email with anyone else.</small>
-                            </div>
-                        </div>
-                        <!-- <div class="g-recaptcha mb-3" data-sitekey="6LcDP40UAAAAAH4UY_4Komf4XsS8B1FqKCVMiScR"></div> Google reCAPTCHA -->
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-primary" name="changeDetailsSubmit" form='changeDetailsForm'

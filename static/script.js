@@ -102,6 +102,64 @@ $("#forgotPasswordSubmit").click(function(){
     })
 });
 
+// Change acount details open
+$("#changeDetailsButton").click(function(){
+    $.ajax({
+        url: "changedetails",
+        dataType: "json",
+        method: "GET",
+        beforeSend: function() {
+            $("#changeDetailsStatus").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>')
+
+            $("form#changeDetailsForm input[type=text]").each(function(){
+                var input = $(this);
+                input.prop("disabled", true)
+            });
+        },
+        success: function(data) {
+            // var json = $.parseJSON(data);
+
+            $("#changeDetailsUsername").attr('placeholder', data.username)
+            $("#changeDetailsFirstName").attr('placeholder', data.firstName)
+            $("#changeDetailsLastName").attr('placeholder', data.lastName)
+
+            $("form#changeDetailsForm input[type=text]").each(function(){
+                var input = $(this);
+                input.prop("disabled", false)
+            });
+
+            $("#changeDetailsStatus").html('')
+        }
+    })
+});
+
+// Change acount details submit
+$("#changeDetailsSubmit").click(function(){
+    $.ajax({
+        url: "changedetails",
+        method: "POST",
+        data: {
+            firstName: $("#changeDetailsFirstName").val(),
+            lastName: $("#changeDetailsLastName").val(),
+            username: $("#changeDetailsUsername").val(),
+        },
+        beforeSend: function() {
+            $("#changeDetailsStatus").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>')
+        },
+        error: function(data) {
+            if(data.responseText.startsWith("Email")) {
+                $("#changeDetailsStatus").html("<div class=\"alert alert-warning\">" + data.responseText + "</div>")
+            }
+            else {
+                $("#changeDetailsStatus").html("<div class=\"alert alert-danger\">" + data.responseText + "</div>")
+            }
+        },
+        success: function(data) {
+            $("#changeDetailsStatus").html('<div class=\"alert alert-success\">' + data + '</div>')
+        }
+    })
+});
+
 // +=============================================================+
 // |                                                             |
 // |                       Modal Handling                        |
