@@ -37,12 +37,14 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+
 class Users(db.Model):
     id = db.Column(db.String(32), primary_key=True)
     email = db.Column(db.String(320), unique=True, nullable=False)
     username = db.Column(db.String(24), unique=True, nullable=False)
     firstName = db.Column(db.String(24))
     lastName = db.Column(db.String(24))
+
 
 db.create_all()
 
@@ -51,6 +53,7 @@ db.create_all()
 # |                            Routes                           |
 # |                                                             |
 # +=============================================================+
+
 
 @app.route('/')
 def root():
@@ -96,7 +99,8 @@ def login():
 
     # Log the user in
     try:
-        user = auth.sign_in_with_email_and_password(request.form['email'], request.form['password'])
+        user = auth.sign_in_with_email_and_password(
+            request.form['email'], request.form['password'])
 
         resp = make_response("Success")  # , redirect('/')
         resp.status_code = 200
@@ -120,18 +124,20 @@ def login():
 
 @app.route('/signup', methods=['POST'])
 def signup():
-    
 
     # Create user account
     try:
         # Get a reference to the auth service
         auth = firebase.auth()
-        auth.create_user_with_email_and_password(request.form['email'], request.form['password'])
+        auth.create_user_with_email_and_password(
+            request.form['email'], request.form['password'])
 
-        user = auth.sign_in_with_email_and_password(request.form['email'], request.form['password'])
+        user = auth.sign_in_with_email_and_password(
+            request.form['email'], request.form['password'])
 
         # Inset user data into db
-        data = Users(id=user['localId'], email=request.form['email'], username=request.form['username'], firstName=request.form['firstName'], lastName=request.form['lastName'])
+        data = Users(id=user['localId'], email=request.form['email'], username=request.form['username'],
+                     firstName=request.form['firstName'], lastName=request.form['lastName'])
 
         db.session.add(data)
         db.session.commit()
@@ -151,6 +157,7 @@ def signup():
             error['message'], "Error on switch (" + error['message'] + "). Please report to Admin"))
         resp.status_code = 400
         return resp
+
 
 @app.route('/logout')
 def logout():
@@ -183,7 +190,8 @@ def forgotPassword():
         resp.status_code = 400
         return resp
 
-@app.route('/changedetails', methods = ['GET', 'POST'])
+
+@app.route('/changedetails', methods=['GET', 'POST'])
 def get_user():
     id_token = request.cookies.get("token")
     auth = firebase.auth()
@@ -198,7 +206,7 @@ def get_user():
             targetUser.firstName = request.form['firstName']
         if request.form['lastName'] != "":
             targetUser.firstName = request.form['lastName']
-        
+
         db.session.commit()
 
         resp = make_response("Success")
@@ -213,7 +221,8 @@ def get_user():
     resp.status_code = 200
     resp.content_type = "application/json"
     return resp
-    
+
+
 @app.route('/changepassword')
 def change_password():
     id_token = request.cookies.get("token")
@@ -225,6 +234,7 @@ def change_password():
     resp = make_response("Success")
     resp.status_code = 200
     return resp
+
 
 @app.route('/deleteaccount')
 def delete_accout():
@@ -257,7 +267,8 @@ def delete_accout():
             error['message'], "Error on switch (" + error['message'] + "). Please report to Admin"))
         resp.status_code = 400
         return resp
-    
+
+
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
     # Engine, a webserver process such as Gunicorn will serve the app. This
