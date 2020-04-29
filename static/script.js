@@ -160,11 +160,25 @@ $("#changeDetailsSubmit").click(function(){
     })
 });
 
-// Change acount details submit
+// Change password
 $("#changePasswordButton").click(function(){
     $.ajax({
         url: "changepassword",
         method: "GET",
+        success: function(data) {
+            $("#changePasswordStatus").html('<div class=\"alert alert-success\">' + data + ', please check your emails</div>')
+        }
+    })
+});
+
+// Change password resend
+$("#changePasswordResend").click(function(){
+    $.ajax({
+        url: "changepassword",
+        method: "GET",
+        beforeSend: function() {
+            $("#changePasswordStatus").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>')
+        },
         success: function(data) {
             $("#changePasswordStatus").html('<div class=\"alert alert-success\">' + data + ', please check your emails</div>')
         }
