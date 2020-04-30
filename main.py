@@ -36,7 +36,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://dbuser:6S#2WV6S%QD&-uJF
 if __name__ == '__main__':
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://dbuser:6S#2WV6S%QD&-uJF@34.87.224.162/coeliacfinder'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    
+
 db = SQLAlchemy(app)
 
 
@@ -129,6 +129,12 @@ def signup():
 
     # Create user account
     try:
+        # Check if username taken
+        if Users.query.filter_by(username=request.form['username']).first() != None:
+            resp = make_response("Username already in use")
+            resp.status_code = 401
+            return resp
+
         # Get a reference to the auth service
         auth = firebase.auth()
         auth.create_user_with_email_and_password(
@@ -195,6 +201,12 @@ def forgotPassword():
 
 @app.route('/changedetails', methods=['GET', 'POST'])
 def get_user():
+    # Check if username taken
+    if Users.query.filter_by(username=request.form['username']).first() != None:
+        resp = make_response("Username already in use")
+        resp.status_code = 401
+        return resp
+
     id_token = request.cookies.get("token")
     auth = firebase.auth()
     user = auth.get_account_info(id_token)
