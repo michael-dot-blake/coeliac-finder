@@ -115,6 +115,7 @@ def login():
 
         switcher = {
             "INVALID_PASSWORD": "Invalid email or password",
+            "INVALID_EMAIL": "Invalid email or password",
             "EMAIL_NOT_FOUND": "Invalid email or password",
             "TOO_MANY_ATTEMPTS_TRY_LATER : Too many unsuccessful login attempts. Please try again later.": "Too many unsuccessful login attempts. Please try again later."
         }
