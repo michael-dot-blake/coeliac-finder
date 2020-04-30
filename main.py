@@ -32,9 +32,11 @@ app.config['FLASK_APP'] = "main.py"
 # |                                                             |
 # +=============================================================+
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://dbuser:6S#2WV6S%QD&-uJF@34.87.224.162/coeliacfinder'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://dbuser:6S#2WV6S%QD&-uJF@34.87.224.162/coeliacfinder?unix_socket=/cloudsql/coeliacfinder:australia-southeast1:coeliacfinder'
+if __name__ == '__main__':
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://dbuser:6S#2WV6S%QD&-uJF@34.87.224.162/coeliacfinder'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+    
 db = SQLAlchemy(app)
 
 
