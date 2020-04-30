@@ -192,7 +192,8 @@ def forgotPassword():
         print(error['message'])
 
         switcher = {
-            "EMAIL_NOT_FOUND": "Email not found"
+            "EMAIL_NOT_FOUND": "Email not found",
+            "MISSING_EMAIL": "Please enter an email address"
         }
         resp = make_response(switcher.get(
             error['message'], "Error on switch (" + error['message'] + "). Please report to Admin"))
