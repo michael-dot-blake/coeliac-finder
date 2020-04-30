@@ -63,7 +63,7 @@ $("#signupSubmit").click(function() {
             $("#signupStatus").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>')
         },
         error: function(data) {
-            if (data.responseText.startsWith("Email")) {
+            if (data.responseText.startsWith("Email") || data.responseText == "Username already in use") {
                 $("#signupStatus").html("<div class=\"alert alert-warning\">" + data.responseText + "</div>")
             } else {
                 $("#signupStatus").html("<div class=\"alert alert-danger\">" + data.responseText + "</div>")
@@ -144,7 +144,7 @@ $("#changeDetailsSubmit").click(function() {
             $("#changeDetailsStatus").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>')
         },
         error: function(data) {
-            if (data.responseText.startsWith("Email")) {
+            if (data.responseText.startsWith("Email") || data.responseText == "Username already in use") {
                 $("#changeDetailsStatus").html("<div class=\"alert alert-warning\">" + data.responseText + "</div>")
             } else {
                 $("#changeDetailsStatus").html("<div class=\"alert alert-danger\">" + data.responseText + "</div>")
