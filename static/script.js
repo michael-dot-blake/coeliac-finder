@@ -23,6 +23,13 @@
 
 // Login
 $("#loginSubmit").click(function() {
+    // Validate
+    var form = $(this.form)[0]
+    if (form.checkValidity() === false) {
+        form.classList.add('was-validated');
+        return;
+    }
+
     $.ajax({
         url: "login",
         method: "POST",
@@ -49,6 +56,13 @@ $("#loginSubmit").click(function() {
 
 // Signup
 $("#signupSubmit").click(function() {
+    // Validate
+    var form = $(this.form)[0]
+    if (form.checkValidity() === false) {
+        form.classList.add('was-validated');
+        return;
+    }
+
     $.ajax({
         url: "signup",
         method: "POST",
@@ -77,6 +91,13 @@ $("#signupSubmit").click(function() {
 
 // Forgot password
 $("#forgotPasswordSubmit").click(function() {
+    // Validate
+    var form = $(this.form)[0]
+    if (form.checkValidity() === false) {
+        form.classList.add('was-validated');
+        return;
+    }
+
     $.ajax({
         url: "forgotpassword",
         method: "POST",
@@ -132,6 +153,13 @@ $("#changeDetailsButton").click(function() {
 
 // Change acount details submit
 $("#changeDetailsSubmit").click(function() {
+    // Validate
+    var form = $(this.form)[0]
+    if (form.checkValidity() === false) {
+        form.classList.add('was-validated');
+        return;
+    }
+
     $.ajax({
         url: "changedetails",
         method: "POST",
@@ -181,7 +209,7 @@ $("#changePasswordResend").click(function() {
     })
 });
 
-// Change password
+// Delete Account
 $("#deleteAccountSubmit").click(function() {
     $.ajax({
         url: "deleteaccount",
