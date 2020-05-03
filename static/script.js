@@ -243,5 +243,12 @@ function hideModal(modalID) {
 }
 
 function showModal(modalID) {
-    $("#" + modalID).modal('show')
+    $("#" + modalID).modal('show');
 }
+
+// Clear modal forms on close
+$('.modal').on('hidden.bs.modal', function() {
+    $(this).find('form')[0].reset();
+
+    $(this).find(".ajaxStatus").html("");
+});
