@@ -60,6 +60,9 @@ $("#signupSubmit").click(function() {
     var form = $(this.form)[0]
     if (form.checkValidity() === false) {
         form.classList.add('was-validated');
+        if (!validateConfirmPassword()) {
+            return;
+        }
         return;
     }
 
@@ -232,6 +235,37 @@ $("#deleteAccountSubmit").click(function() {
     })
 });
 
+// Validate confirm password
+function validateConfirmPassword() {
+    if ($("#signupConfirmPassword").val() == "" || $("#signupPassword").val() == "") {
+        $("#signupConfirmPassword")[0].classList.remove('is-valid');
+        $("#signupConfirmPassword")[0].classList.remove('is-invalid');
+    } else if ($("#signupPassword").val() != $("#signupConfirmPassword").val()) {
+        $("#signupConfirmPassword")[0].classList.remove('is-valid');
+        $("#signupConfirmPassword")[0].classList.add('is-invalid');
+        $("#signupConfirmPassword")[0].setCustomValidity("Passwords must match");
+        return true;
+    } else {
+        $("#signupConfirmPassword")[0].classList.remove('is-invalid');
+        $("#signupConfirmPassword")[0].classList.add('is-valid');
+        $("#signupConfirmPassword")[0].setCustomValidity("");
+
+        return false;
+    }
+}
+
+function validatePassword() {
+    var passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
+
+    if (passwordRegex.test($("#signupPassword").val())) {
+        $("#signupPassword")[0].classList.remove('is-invalid');
+        $("#signupPassword")[0].classList.add('is-valid');
+    } else {
+        $("#signupPassword")[0].classList.remove('is-valid');
+        $("#signupPassword")[0].classList.add('is-invalid');
+    }
+}
+
 // +=============================================================+
 // |                                                             |
 // |                       Modal Handling                        |
@@ -248,7 +282,16 @@ function showModal(modalID) {
 
 // Clear modal forms on close
 $('.modal').on('hidden.bs.modal', function() {
+    // Reset form
     $(this).find('form')[0].reset();
+    $(this).find('form')[0].classList.remove('was-validated');
 
+    // Remove ajax status message
     $(this).find(".ajaxStatus").html("");
+
+    // Need to remove validation that we added for password and confirm password
+    $("#signupConfirmPassword")[0].classList.remove('is-valid');
+    $("#signupConfirmPassword")[0].classList.remove('is-invalid');
+    $("#signupPassword")[0].classList.remove('is-valid');
+    $("#signupPassword")[0].classList.remove('is-invalid');
 });

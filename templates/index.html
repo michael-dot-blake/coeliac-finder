@@ -124,16 +124,15 @@
                         <div class="form-row">
                             <div class="mb-3 col-md-6">
                                 <label for="signupPassword">Password</label>
-                                <input type="password" class="form-control" id="signupPassword" placeholder="Password" minlength="8" maxlength="64" name="password" required>
-                                <!--onkeyup="validateConfirmPassword('signupModal')"-->
+                                <input type="password" class="form-control" id="signupPassword" placeholder="Password" minlength="8" maxlength="64" name="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}" onblur="validatePassword();" onkeyup="validateConfirmPassword();" required>
+
                                 <small id="signupPasswordHelp" class="form-text text-muted">Password must be
                                     at-least 8 characters long and contain a lowercase letter, an uppercase letter, and
                                     a number.</small>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="signupConfirmPassword">Confirm Password</label>
-                                <input type="password" class="form-control" id="signupConfirmPassword" placeholder="Confirm Password" name="confirmPassword" required>
-                                <!--onkeyup="validateConfirmPassword('signupModal')"-->
+                                <input type="password" class="form-control" id="signupConfirmPassword" placeholder="Confirm Password" name="confirmPassword" onkeyup="validateConfirmPassword()" required>
                                 <div id="signupPasswordMatchError" class="invalid-feedback">
                                     Passwords must match.
                                 </div>
