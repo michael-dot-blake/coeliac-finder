@@ -127,6 +127,11 @@ def login():
 
 @app.route('/signup', methods=['POST'])
 def signup():
+    # Check for blank username
+    if (request.form['username'] == ""):
+        resp = make_response("Username cannot be blank")
+        resp.status_code = 401
+        return resp
 
     # Create user account
     try:
@@ -209,7 +214,7 @@ def get_user():
     userID = user['users'][0]['localId']
     targetUser = Users.query.filter_by(id=userID).first()
 
-    if request.method == 'POST':\
+    if request.method == 'POST':
         # Check if username taken
         if Users.query.filter_by(username=request.form['username']).first() != None:
             resp = make_response("Username already in use")
