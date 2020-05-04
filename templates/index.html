@@ -100,11 +100,11 @@
                         <div class="form-row">
                             <div class="mb-3 col-md-6">
                                 <label for="signupFirstName">First Name</label>
-                                <input type="text" class="form-control" id="signupFirstName" maxlength="24" placeholder="First Name" name="firstName" required>
+                                <input type="text" class="form-control" id="signupFirstName" maxlength="24" placeholder="First Name" name="firstName">
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="signupLastName">Last Name</label>
-                                <input type="text" class="form-control" id="signupLastName" maxlength="24" placeholder="Last Name" name="lastName" required>
+                                <input type="text" class="form-control" id="signupLastName" maxlength="24" placeholder="Last Name" name="lastName">
                             </div>
                         </div>
                         <div class="form-row">
@@ -124,16 +124,15 @@
                         <div class="form-row">
                             <div class="mb-3 col-md-6">
                                 <label for="signupPassword">Password</label>
-                                <input type="password" class="form-control" id="signupPassword" placeholder="Password" minlength="8" maxlength="64" name="password" required>
-                                <!--onkeyup="validateConfirmPassword('signupModal')"-->
+                                <input type="password" class="form-control" id="signupPassword" placeholder="Password" minlength="8" maxlength="64" name="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}" onblur="validatePassword();" onkeyup="validateConfirmPassword();" required>
+
                                 <small id="signupPasswordHelp" class="form-text text-muted">Password must be
                                     at-least 8 characters long and contain a lowercase letter, an uppercase letter, and
                                     a number.</small>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="signupConfirmPassword">Confirm Password</label>
-                                <input type="password" class="form-control" id="signupConfirmPassword" placeholder="Confirm Password" name="confirmPassword" required>
-                                <!--onkeyup="validateConfirmPassword('signupModal')"-->
+                                <input type="password" class="form-control" id="signupConfirmPassword" placeholder="Confirm Password" name="confirmPassword" onkeyup="validateConfirmPassword()" required>
                                 <div id="signupPasswordMatchError" class="invalid-feedback">
                                     Passwords must match.
                                 </div>
@@ -211,17 +210,17 @@
                         <div class="form-row">
                             <div class="mb-3 col-md-6">
                                 <label for="changeDetailsFirstName">First Name</label>
-                                <input type="text" class="form-control" id="changeDetailsFirstName" maxlength="24" placeholder="First Name" name="firstName" required>
+                                <input type="text" class="form-control" id="changeDetailsFirstName" maxlength="24" placeholder="First Name" name="firstName">
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="changeDetailsLastName">Last Name</label>
-                                <input type="text" class="form-control" id="changeDetailsLastName" maxlength="24" placeholder="Last Name" name="lastName" required>
+                                <input type="text" class="form-control" id="changeDetailsLastName" maxlength="24" placeholder="Last Name" name="lastName">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="mb-3 col-md-12">
                                 <label for="changeDetailsUsername">Username</label>
-                                <input type="text" class="form-control" id="changeDetailsUsername" maxlength="24" placeholder="Username" name="username" required>
+                                <input type="text" class="form-control" id="changeDetailsUsername" maxlength="24" placeholder="Username" name="username">
                             </div>
                         </div>
                     </div>
