@@ -7,5 +7,12 @@ var map = new mapboxgl.Map({
     zoom: 12
 });
 
+map.addControl(
+    new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
+    })
+);
+
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl());
