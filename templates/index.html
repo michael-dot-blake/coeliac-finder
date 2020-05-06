@@ -9,6 +9,10 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+    <!-- HERE JS -->
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
+
     <title>Coeliac Finder</title>
 
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -31,7 +35,7 @@
 </nav>
 
 <body>
-    <div style="height: calc(100% - 56px); width: 100%; position: absolute;" id="map"></div>
+    <div style="height: calc(100% - 56px); width: 100%; position: absolute;" id="mapContainer"></div>
 
     <!-- Start loginModal -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -331,7 +335,6 @@
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <script src="{{ url_for('static', filename='map.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5ptybqH1F-VvomPE-srz5x9tOc8vQ-Bk&callback=initMap" async defer></script>
 </body>
 
 </html>
