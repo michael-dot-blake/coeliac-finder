@@ -4,7 +4,8 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11', //'mapbox://styles/dhenry437/ck9v860rb00dp1inpfefyxgww'
     center: { lat: -37.8136, lng: 144.9631 },
-    zoom: 12
+    zoom: 12,
+    keyboard: true
 });
 
 map.addControl(
