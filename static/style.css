@@ -1,3 +1,11 @@
 .modal {
     overflow-y: auto;
 }
+
+#btnAddReview {
+    position: absolute;
+    bottom: 26px;
+    right: 12px;
+    z-index: 20;
+    line-height: 1;
+}
