@@ -50,7 +50,7 @@
     <div style="height: calc(100% - 56px); width: 100%; position: absolute;" id="map"></div>
 
     <!-- Add review button -->
-    <button type="button" class="btn btn-success" id="btnAddReview"><span class="material-icons">add</span></button>
+    <button type="button" class="btn btn-success" id="btnAddReview" data-toggle="modal" data-target="#addReviewModal"><span class="material-icons">add</span></button>
 
     <!-- Start loginModal -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -341,6 +341,36 @@
         </div>
     </div>
     <!-- End termsAndConditionsModal -->
+
+    <!-- Start addReviewModal  -->
+    <div class="modal fade" id="addReviewModal" tabindex="-1" role="dialog" aria-labelledby="addReviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="addReviewForm" action="/login" method="post" class="needs-validation">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addReviewModalLabel">Add Review</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="addReviewStatus" class="ajaxStatus">
+                            <!-- Add review status will display here -->
+                        </div>
+                        <label for="addReviewPlace">Place</label>
+                        <input type="text" class="form-control" id="addReviewPlace" placeholder="Enter name of place">
+                        <hr>
+                        <label for="addReviewText">Review</label>
+                        <textarea class="form-control" id="addReviewText" rows="3"></textarea>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" form="addReviewForm" class="btn btn-primary" name="addReviewSubmit" id="addReviewSubmit" value="Submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End addReviewModal  -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
