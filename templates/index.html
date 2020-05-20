@@ -34,7 +34,8 @@
         </div>
     </div>
     {% else: %}
-    <button id="btnLogin" type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#loginModal">Login</button> {% endif %}
+    <button id="btnLogin" type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#loginModal">Login</button>
+    {% endif %}
 </nav>
 
 <body>
@@ -50,7 +51,9 @@
     <div id="map"></div>
 
     <!-- Add review button -->
+    {% if user_data: %}
     <button type="button" class="btn btn-success" id="btnAddReview" data-toggle="modal" data-target="#addReviewModal"><span class="material-icons">add</span></button>
+    {% endif %}
 
     <!-- Start loginModal -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
