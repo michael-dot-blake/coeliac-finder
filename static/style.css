@@ -2,6 +2,12 @@
     overflow-y: auto;
 }
 
+#map {
+    height: calc(100% - 56px);
+    width: 100%;
+    position: absolute;
+}
+
 #btnAddReview {
     position: absolute;
     bottom: 26px;
