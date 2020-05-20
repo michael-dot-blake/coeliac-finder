@@ -15,3 +15,8 @@
     z-index: 20;
     line-height: 1;
 }
+
+.mapboxgl-ctrl-geocoder {
+    width: 100% !important;
+    max-width: 100% !important;
+}

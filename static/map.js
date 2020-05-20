@@ -28,3 +28,9 @@ map.addControl(
         trackUserLocation: true
     })
 );
+
+// Geocoder for add review modal
+var geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    types: 'country,region,place,postcode,locality,neighborhood'
+}).addTo('#addReviewPlace');
