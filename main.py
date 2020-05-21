@@ -41,12 +41,22 @@ db = SQLAlchemy(app)
 
 
 class Users(db.Model):
-    id = db.Column(db.String(32), primary_key=True)
+    id = db.Column(db.String(32), unique=True, nullable=False, primary_key=True)
     email = db.Column(db.String(320), unique=True, nullable=False)
     username = db.Column(db.String(24), unique=True, nullable=False)
     firstName = db.Column(db.String(24))
     lastName = db.Column(db.String(24))
 
+class Places(db.Model):
+    id = db.Column(db.String(20), unique=True, nullable=False, primary_key=True)
+    streetAddress = db.Column(db.String(255), nullable=False)
+    suburb = db.Column(db.String(255), nullable=False)
+    state = db.Column(db.String(255), nullable=False)
+    country = db.Column(db.String(255), nullable=False)
+    lat = db.Column(db.Float, nullable=False)
+    lon = db.Column(db.Float, nullable=False)
+    name = db.Column(db.String(255), nullable=False)
+    catagory = db.Column(db.String(255))
 
 db.create_all()
 
