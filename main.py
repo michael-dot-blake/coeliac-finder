@@ -56,7 +56,7 @@ class Places(db.Model):
     lat = db.Column(db.Float, nullable=False)
     lon = db.Column(db.Float, nullable=False)
     name = db.Column(db.String(255), nullable=False)
-    catagory = db.Column(db.String(255))
+    category = db.Column(db.String(255))
 
 db.create_all()
 
