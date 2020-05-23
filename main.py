@@ -41,17 +41,21 @@ db = SQLAlchemy(app)
 
 
 class Users(db.Model):
-    id = db.Column(db.String(32), unique=True, nullable=False, primary_key=True)
+    id = db.Column(db.String(32), unique=True,
+                   nullable=False, primary_key=True)
     email = db.Column(db.String(320), unique=True, nullable=False)
     username = db.Column(db.String(24), unique=True, nullable=False)
     firstName = db.Column(db.String(24))
     lastName = db.Column(db.String(24))
 
+
 class Places(db.Model):
-    id = db.Column(db.String(20), unique=True, nullable=False, primary_key=True)
+    id = db.Column(db.String(20), unique=True,
+                   nullable=False, primary_key=True)
     streetAddress = db.Column(db.String(255), nullable=False)
     suburb = db.Column(db.String(255), nullable=False)
     state = db.Column(db.String(255), nullable=False)
+    postCode = db.Column(db.Integer, nullable=False)
     country = db.Column(db.String(255), nullable=False)
     lat = db.Column(db.Float, nullable=False)
     lon = db.Column(db.Float, nullable=False)
@@ -300,6 +304,24 @@ def delete_accout():
         resp.status_code = 400
         return resp
 
+
+def add_place():
+    # Inset user data into db
+    data = Places(id=request.form['id'], streetAddress=request.form['streetAddress'], suburb=request.form['suburb'],
+                  state=request.form['state'], postCode=request.form['postCode'], country=request.form['country'],
+                  lat=request.form['lat'], lon=request.form['lon'], name=request.form['name'], category=request.form['category'])
+
+    db.session.add(data)
+    db.session.commit()
+    return
+
+@app.route('/reviews', methods=['POST'])
+def add_review():
+    add_place()
+
+    resp = make_response("Success")
+    resp.status_code = 200
+    return resp
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

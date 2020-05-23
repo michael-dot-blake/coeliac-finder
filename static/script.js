@@ -266,6 +266,32 @@ function validatePassword() {
     }
 }
 
+$("#addReviewSubmit").click(function() {
+    console.log(placeResult);
+    $.ajax({
+        url: "reviews",
+        method: "POST",
+        data: {
+            id: placeResult.result.id,
+            streetAddress: placeResult.result.properties.address,
+            suburb: placeResult.result.context[0].text,
+            state: placeResult.result.context[3].text,
+            postCode: placeResult.result.context[1].text,
+            country: placeResult.result.context[4].text,
+            lat: placeResult.result.geometry.coordinates[0],
+            lon: placeResult.result.geometry.coordinates[1],
+            name: placeResult.result.text,
+            category: placeResult.result.properties.category,
+        },
+        beforeSend: function() {
+            $("#addReviewStatus").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>')
+        },
+        success: function(data) {
+            $("#addReviewStatus").html('<div class=\"alert alert-success\">' + data + '</div>')
+        }
+    })
+});
+
 // +=============================================================+
 // |                                                             |
 // |                       Modal Handling                        |

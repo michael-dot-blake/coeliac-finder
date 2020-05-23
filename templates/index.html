@@ -34,8 +34,7 @@
         </div>
     </div>
     {% else: %}
-    <button id="btnLogin" type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#loginModal">Login</button>
-    {% endif %}
+    <button id="btnLogin" type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#loginModal">Login</button> {% endif %}
 </nav>
 
 <body>
@@ -52,8 +51,7 @@
 
     <!-- Add review button -->
     {% if user_data: %}
-    <button type="button" class="btn btn-success" id="btnAddReview" data-toggle="modal" data-target="#addReviewModal"><span class="material-icons">add</span></button>
-    {% endif %}
+    <button type="button" class="btn btn-success" id="btnAddReview" data-toggle="modal" data-target="#addReviewModal"><span class="material-icons">add</span></button> {% endif %}
 
     <!-- Start loginModal -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -381,8 +379,8 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
     <script src="{{ url_for('static', filename='map.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 
 </html>
