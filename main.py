@@ -62,6 +62,10 @@ class Places(db.Model):
     name = db.Column(db.String(255), nullable=False)
     category = db.Column(db.String(255))
 
+# class Reviews(db.Model):
+#     id = id = db.Column(db.String(), unique=True, nullable=False, primary_key=True) # CHECK TYPE
+
+
 db.create_all()
 
 # +=============================================================+
@@ -306,6 +310,11 @@ def delete_accout():
 
 
 def add_place():
+    # Check if place exists in db
+    if Places.query.filter_by(id=request.form['id']).first() != None:
+        print("duplicate place")
+        return
+
     # Inset user data into db
     data = Places(id=request.form['id'], streetAddress=request.form['streetAddress'], suburb=request.form['suburb'],
                   state=request.form['state'], postCode=request.form['postCode'], country=request.form['country'],
