@@ -1,19 +1,7 @@
-// 'use strict';
-
-// window.addEventListener('load', function () {
-//     // Fetch all the forms we want to apply custom Bootstrap validation styles to
-//     var forms = document.getElementsByClassName('needs-validation');
-//     // Loop over them and prevent submission
-//     var validation = Array.prototype.filter.call(forms, function (form) {
-//         form.addEventListener('submit', function (event) {
-//             if (form.checkValidity() === false) {
-//                 event.preventDefault();
-//                 event.stopPropagation();
-//             }
-//             form.classList.add('was-validated');
-//         }, false);
-//     });
-// }, false);
+// Rating Initialization
+$(document).ready(function() {
+    $('#rating').mdbRate();
+});
 
 // +=============================================================+
 // |                                                             |
@@ -263,6 +251,53 @@ function validatePassword() {
     } else {
         $("#signupPassword")[0].classList.remove('is-valid');
         $("#signupPassword")[0].classList.add('is-invalid');
+    }
+}
+
+$("#addReviewSubmit").click(function() {
+    if (!validateAddReview()) {
+        return
+    }
+
+    var form = $(this.form)[0]
+    if (form.checkValidity() === false) {
+        form.classList.add('was-validated');
+        return;
+    }
+
+    console.log(placeResult);
+    $.ajax({
+        url: "reviews",
+        method: "POST",
+        data: {
+            id: placeResult.result.id,
+            streetAddress: placeResult.result.properties.address,
+            suburb: placeResult.result.context[0].text,
+            state: placeResult.result.context[3].text,
+            postCode: placeResult.result.context[1].text,
+            country: placeResult.result.context[4].text,
+            lat: placeResult.result.geometry.coordinates[0],
+            lon: placeResult.result.geometry.coordinates[1],
+            name: placeResult.result.text,
+            category: placeResult.result.properties.category,
+            text: $("#addReviewText").val()
+        },
+        beforeSend: function() {
+            $("#addReviewStatus").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>')
+        },
+        success: function(data) {
+            $("#addReviewStatus").html('<div class=\"alert alert-success\">' + data + '</div>')
+        }
+    })
+});
+
+function validateAddReview() {
+    if (placeResult == undefined) {
+        $("#addReviewStatus").html("<div class=\"alert alert-danger\">Select a place</div>");
+        return false
+    } else {
+        $("#addReviewStatus").html("");
+        return true
     }
 }
 

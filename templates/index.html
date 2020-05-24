@@ -13,6 +13,8 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
 
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <title>Coeliac Finder</title>
 
@@ -36,13 +38,20 @@
 </nav>
 
 <body>
+    <!-- Mapbox scripts -->
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css" type="text/css" />
+
     <!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 
-    <div style="height: calc(100% - 56px); width: 100%; position: absolute;" id="map"></div>
+    <!-- Map -->
+    <div id="map"></div>
+
+    <!-- Add review button -->
+    {% if user_data: %}
+    <button type="button" class="btn btn-success" id="btnAddReview" data-toggle="modal" data-target="#addReviewModal"><span class="material-icons">add</span></button> {% endif %}
 
     <!-- Start loginModal -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -334,14 +343,45 @@
     </div>
     <!-- End termsAndConditionsModal -->
 
+    <!-- Start addReviewModal  -->
+    <div class="modal fade" id="addReviewModal" tabindex="-1" role="dialog" aria-labelledby="addReviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="addReviewForm" action="/login" method="post" class="needs-validation">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addReviewModalLabel">Add Review</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="addReviewStatus" class="ajaxStatus">
+                            <!-- Add review status will display here -->
+                        </div>
+                        <label for="addReviewPlace">Place</label>
+                        <div id="addReviewPlace"></div>
+                        <hr>
+                        <label for="addReviewText">Review</label>
+                        <textarea class="form-control" id="addReviewText" rows="3" maxlength="255" required></textarea>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" form="addReviewForm" class="btn btn-primary" name="addReviewSubmit" id="addReviewSubmit" value="Submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End addReviewModal  -->
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
     <script src="{{ url_for('static', filename='map.js') }}"></script>
+    <script src="{{ url_for('static', filename='rating.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 
 </html>
