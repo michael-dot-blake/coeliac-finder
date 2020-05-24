@@ -67,4 +67,6 @@ function showPlacesModal(id, name, streetAddress, suburb, state, postCode, count
     $("#placesModalAddress").text(`${streetAddress}, ${suburb}, ${state} ${postCode}, ${country}`);
 
     $('#placesModal').modal('show');
+
+
 }
