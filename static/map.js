@@ -45,3 +45,16 @@ geocoder.on('result', function(e) {
 
     placeResult = e;
 });
+
+$.ajax({
+    url: "places",
+    method: "GET",
+    success: function(data) {
+        data.places.forEach(place => {
+            new mapboxgl.Marker()
+                .setLngLat([place.lat, place.lon])
+                // .setPopup(new mapboxgl.Popup().setHTML('<h1>' + place.name + '</h1><p>'))
+                .addTo(map);
+        });
+    },
+});
