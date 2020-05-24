@@ -33,7 +33,8 @@ map.addControl(
 
 // Geocoder for add review modal
 var geocoder = new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken
+    accessToken: mapboxgl.accessToken,
+    types: 'poi'
 });
 
 geocoder.addTo('#addReviewPlace');
