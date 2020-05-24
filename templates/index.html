@@ -347,7 +347,7 @@
     <div class="modal fade" id="addReviewModal" tabindex="-1" role="dialog" aria-labelledby="addReviewModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form id="addReviewForm" action="/login" method="post" class="needs-validation">
+                <form id="addReviewForm" class="needs-validation">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addReviewModalLabel">Add Review</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -373,6 +373,35 @@
     </div>
     <!-- End addReviewModal  -->
 
+    <!-- Start placesModal  -->
+    <div class="modal fade" id="placesModal" tabindex="-1" role="dialog" aria-labelledby="placesModalName" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="placesForm" class="needs-validation">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="placesModalName">Name of place</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="placesModalAddress">Address</p>
+                        <hr>
+                        <div id="placesStatus" class="ajaxStatus">
+                            <!-- Add review status will display here -->
+                        </div>
+                        <label for="placesText">Review</label>
+                        <textarea class="form-control" id="placesText" rows="3" maxlength="255" required></textarea>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" form="placesForm" class="btn btn-primary" name="placesSubmit" id="placesSubmit" value="Submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End placesModal  -->
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
@@ -380,7 +409,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     <script src="{{ url_for('static', filename='map.js') }}"></script>
-    <script src="{{ url_for('static', filename='rating.min.js') }}"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 

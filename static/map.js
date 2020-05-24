@@ -45,3 +45,28 @@ geocoder.on('result', function(e) {
 
     placeResult = e;
 });
+
+$.ajax({
+    url: "places",
+    method: "GET",
+    success: function(data) {
+        data.places.forEach(place => {
+            var id = place.id;
+            var name = place.name;
+            new mapboxgl.Marker()
+                .setLngLat([place.lat, place.lon])
+                .setPopup(new mapboxgl.Popup()
+                    .setHTML(`<h5>${place.name}</h5><p>${place.streetAddress}, ${place.suburb}<br>${place.state} ${place.postCode}, ${place.country}</p><button id="btnPlace" class="btn btn-primary" onclick="showPlacesModal('${place.id}','${place.name}','${place.streetAddress}','${place.suburb}','${place.state}','${place.postCode}','${place.country}')">Reviews</button>`))
+                .addTo(map);
+        });
+    },
+});
+
+function showPlacesModal(id, name, streetAddress, suburb, state, postCode, country) {
+    $("#placesModalName").text(name);
+    $("#placesModalAddress").text(`${streetAddress}, ${suburb}, ${state} ${postCode}, ${country}`);
+
+    $('#placesModal').modal('show');
+
+
+}
