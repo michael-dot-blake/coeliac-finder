@@ -47,6 +47,8 @@ class Users(db.Model):
     username = db.Column(db.String(24), unique=True, nullable=False)
     firstName = db.Column(db.String(24))
     lastName = db.Column(db.String(24))
+    created_on = db.Column(db.DateTime, server_default=db.func.now())
+    updated_on = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
 
 class Places(db.Model):
@@ -62,9 +64,13 @@ class Places(db.Model):
     name = db.Column(db.String(255), nullable=False)
     category = db.Column(db.String(255))
 
-# class Reviews(db.Model):
-#     id = id = db.Column(db.String(), unique=True, nullable=False, primary_key=True) # CHECK TYPE
-
+class Reviews(db.Model):
+    id = db.Column(db.String(), unique=True, nullable=False, primary_key=True) # CHECK TYPE
+    placeId = db.Column(db.String(20), nullable=False)
+    userId = db.Column(db.String(32), nullable=False)
+    text = db.Column(db.String(255), nullable=False)
+    created_on = db.Column(db.DateTime, server_default=db.func.now())
+    updated_on = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
 db.create_all()
 
