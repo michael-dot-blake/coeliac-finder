@@ -51,8 +51,6 @@ $.ajax({
     method: "GET",
     success: function(data) {
         data.places.forEach(place => {
-            var id = place.id;
-            var name = place.name;
             new mapboxgl.Marker()
                 .setLngLat([place.lat, place.lon])
                 .setPopup(new mapboxgl.Popup()
@@ -65,8 +63,10 @@ $.ajax({
 function showPlacesModal(id, name, streetAddress, suburb, state, postCode, country) {
     $("#placesModalName").text(name);
     $("#placesModalAddress").text(`${streetAddress}, ${suburb}, ${state} ${postCode}, ${country}`);
+    $("#placeId").text(id);
 
     $('#placesModal').modal('show');
 
-
+    // Load reviews
+    loadReviews(id);
 }
