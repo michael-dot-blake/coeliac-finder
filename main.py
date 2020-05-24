@@ -9,6 +9,7 @@ import os
 from urllib.error import HTTPError
 import json
 from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
 from flask.json import jsonify
 import uuid
 
@@ -39,7 +40,7 @@ if __name__ == '__main__':
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
-
+ma = Marshmallow(app)
 
 class Users(db.Model):
     id = db.Column(db.String(32), unique=True,
@@ -49,7 +50,8 @@ class Users(db.Model):
     firstName = db.Column(db.String(24))
     lastName = db.Column(db.String(24))
     created_on = db.Column(db.DateTime, server_default=db.func.now())
-    updated_on = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+    updated_on = db.Column(
+        db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
     reviews = db.relationship('Reviews', backref='users', lazy=True)
 
 class Places(db.Model):
@@ -67,14 +69,31 @@ class Places(db.Model):
     reviews = db.relationship('Reviews', backref='places', lazy=True)
 
 class Reviews(db.Model):
-    id = db.Column(db.String(42), unique=True, nullable=False, primary_key=True) # CHECK TYPE
-    placeId = db.Column(db.String(20), db.ForeignKey('places.id'), nullable=False)
-    userId = db.Column(db.String(32), db.ForeignKey('users.id'), nullable=False)
+    id = db.Column(db.String(42), unique=True, nullable=False,
+                   primary_key=True)  # CHECK TYPE
+    placeId = db.Column(db.String(20), db.ForeignKey(
+        'places.id'), nullable=False)
+    userId = db.Column(db.String(32), db.ForeignKey(
+        'users.id'), nullable=False)
     text = db.Column(db.String(255), nullable=False)
     created_on = db.Column(db.DateTime, server_default=db.func.now())
-    updated_on = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+    updated_on = db.Column(
+        db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
 db.create_all()
+
+class UsersSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Users
+
+
+class PlacesSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Places
+
+class ReviewsSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Reviews
 
 # +=============================================================+
 # |                                                             |
@@ -233,7 +252,7 @@ def forgotPassword():
 
 
 @app.route('/changedetails', methods=['GET', 'POST'])
-def get_user():
+def user_details():
     id_token = request.cookies.get("token")
     auth = firebase.auth()
     user = auth.get_account_info(id_token)
@@ -331,6 +350,7 @@ def add_place():
     db.session.commit()
     return
 
+
 @app.route('/reviews', methods=['POST'])
 def add_review():
     add_place()
@@ -345,17 +365,26 @@ def add_review():
     userId = user['users'][0]['localId']
 
     # Inset review data into db
-    print("id = " + id)
-    print("placeId = " + request.form['id'])
-    print("userId = " + userId)
-    print("text = " + request.form['text'])
-    data = Reviews(id=id, placeId=request.form['id'], userId=userId, text=request.form['text'])
+    data = Reviews(
+        id=id, placeId=request.form['id'], userId=userId, text=request.form['text'])
 
     db.session.add(data)
     db.session.commit()
 
     resp = make_response("Success")
     resp.status_code = 200
+    return resp
+
+
+@app.route('/places')
+def get_all_places():
+    places = Places.query.all()
+    places_schema = PlacesSchema(many=True)
+    output = places_schema.dump(places)
+    resp = jsonify({'places': output})
+    
+    resp.status_code = 200
+    resp.content_type = "application/json"
     return resp
 
 if __name__ == '__main__':
