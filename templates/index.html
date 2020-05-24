@@ -347,7 +347,7 @@
     <div class="modal fade" id="addReviewModal" tabindex="-1" role="dialog" aria-labelledby="addReviewModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form id="addReviewForm" action="/login" method="post" class="needs-validation">
+                <form id="addReviewForm" class="needs-validation">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addReviewModalLabel">Add Review</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -372,6 +372,36 @@
         </div>
     </div>
     <!-- End addReviewModal  -->
+
+    <!-- Start placesModal  -->
+    <div class="modal fade" id="placesModal" tabindex="-1" role="dialog" aria-labelledby="placesModalName" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="placesForm" class="needs-validation">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="placesModalName">Name of place</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="placesModalAddress">Address</p>
+                        <hr>
+                        <div id="placesStatus" class="ajaxStatus">
+                            <!-- Add review status will display here -->
+                        </div>
+                        <label for="placesText">Review</label>
+                        <textarea class="form-control" id="placesText" rows="3" maxlength="255" required></textarea>
+                        <div class="alert alert-warning">There are no reviews for this place</div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" form="placesForm" class="btn btn-primary" name="placesSubmit" id="placesSubmit" value="Submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End placesModal  -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
