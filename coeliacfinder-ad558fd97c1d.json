@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "coeliacfinder",
+  "private_key_id": "ad558fd97c1d32bd5b2fb30aed9415be8ed9f435",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQDoTPQQNs7RdVLJ\nu/rYWoD2jNCBtw7B6nhc0phMCdbSwOQ792ta9LlRdQy6yPH6yJCjVuae7vChB7Ro\nGtw6qaO/ga1gVmaHq5g1ZS0yX91cL5bkc3y9pZNmCzkKen3gF0oRAy9XGNltiFZi\nwsMy4Ynlt+pOQh0G1fixo6JQC/zMNiQW7DTAgiMDg0PKrOBRUECpseCpB/GpwQex\nO/Y1gqsg9KjDTG5OJYmyiBdd/ETmtUSVHO2CATT6ROof/zdDSZ49Dmmd2gglQ60n\nUt0JMT5zpxT4WBagGFCOfXL2XVuh1hkm3wyUssVmcx/5PCX2BWBTDs+N9HKd/c/O\nCgYhW7ejAgMBAAECgf8oewebIQ5bHHpfAo2ltFioZVNFuT0gOFgy8SqY+R32Yxh/\nIckv5crXPGPQ04jlqtTe9zeOXjF0Fyq8h7jY8e/BtqyqgJzPJAmpRFvjB9GZhgbT\nrC/l+OZTKRNHlYKvQybPs7AoqAE7sZSxhLDUrQcTnVya1M4dqfLzrGWOVIhx8OE+\nTXc4Na9u4cBHSrIV0zt3k1f9okzpxJytFkccuCeW3R8ktk7a7vOBGv0sOL3g9ju6\nc8/DloieMCbfcONIH1rEiRJGU61p63hJ6IGTBKkE07nI2SUivCzhbrlT3dLxbXuq\nUXHo6CqhiscCFuA02/L0hAShepkEnkp/Vkn0ZX0CgYEA9VvrZ7Oq6i0xYK+2AIb1\n/H46LzVdE4JhVHJlyY0suwsJWsbbErXlYjEx70EqwuHjqwacDmmvUn8I9HnDTaY/\nyFYgmPFFNGeJnlMRSKYuWyFVW1/wgg/LgGcmymr2o+vdqkocyayi4oc6+GslJrDG\nmaDwpe1RWczJjWxm/i8INu0CgYEA8mANoO2MNhrL43XlfQdxoS2Gzma5dK2EN96w\n0e4rmYMp2ttI1FqccYGmNxgaXg4r0OTKSUpPifJ4QnNUjxH7Bqvxm5EcRme6ucl6\njDK7Z7tHZRv3IJx3BgFrax3Z5HrSma+sRMlZus3DXDArbcrARlOinr6fPDjZ27Mn\nSTisxs8CgYBg57kF8DQk4UyLP1rGwocM/l3En3LvbaM7UyNYg2WTSjybmcaUkTrT\nmVJ7iGV3KvhcZ/PizWLtVjcXN7AnTu4KFdoyDbijhfEYkv5Ujy3n2DZ6LF41QD/D\nqvnrIGvhOhsGUtcj4AdFKNvlmYvGyDLoImRpZF2o9fT04kebRMAd0QKBgQCLzoIu\nALgvAVf4daoRa7jMuwEWj8SMHAa3X3npLhPyMelzt6eT7kxtYNaq0vlqpYv6q+5P\nRlEJBlb+JZ5yBHIjEA2GqbaAmhboUeKheiYFmM5+8Rmksvwo96qpmAd2tq5CPkYF\nS4u5qDT3OUXjx98O8fFM1jHtv/FSvE19+/YVmwKBgG/eZw/kKLWkGF8RkuitsQjn\nRFgGqf7tZwp/fS6BR5qXjr5wlpKOmatb3wK4wMzw5Ute5Xrd6czSOhQRc3trg6JD\nhb4KAen90c+b89EBSA96qNUWky839Czdb52EXCvWqDgD32Ev7t1D0gGgvvbAnghp\nBgfm9YrO6Y2LXqBkrCbg\n-----END PRIVATE KEY-----\n",
+  "client_email": "coeliacfinder@appspot.gserviceaccount.com",
+  "client_id": "105058255287698432256",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/coeliacfinder%40appspot.gserviceaccount.com"
+}
