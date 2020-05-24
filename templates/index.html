@@ -362,7 +362,7 @@
                         <div id="addReviewPlace"></div>
                         <hr>
                         <label for="addReviewText">Review</label>
-                        <textarea class="form-control" id="addReviewText" rows="3"></textarea>
+                        <textarea class="form-control" id="addReviewText" rows="3" maxlength="255" required></textarea>
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" form="addReviewForm" class="btn btn-primary" name="addReviewSubmit" id="addReviewSubmit" value="Submit">Submit</button>
@@ -380,6 +380,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     <script src="{{ url_for('static', filename='map.js') }}"></script>
+    <script src="{{ url_for('static', filename='rating.min.js') }}"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 

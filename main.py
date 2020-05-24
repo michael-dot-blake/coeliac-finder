@@ -10,6 +10,7 @@ from urllib.error import HTTPError
 import json
 from flask_sqlalchemy import SQLAlchemy
 from flask.json import jsonify
+import uuid
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "coeliacfinder-ad558fd97c1d.json"
 
@@ -49,7 +50,7 @@ class Users(db.Model):
     lastName = db.Column(db.String(24))
     created_on = db.Column(db.DateTime, server_default=db.func.now())
     updated_on = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
-
+    reviews = db.relationship('Reviews', backref='users', lazy=True)
 
 class Places(db.Model):
     id = db.Column(db.String(20), unique=True,
@@ -63,11 +64,12 @@ class Places(db.Model):
     lon = db.Column(db.Float, nullable=False)
     name = db.Column(db.String(255), nullable=False)
     category = db.Column(db.String(255))
+    reviews = db.relationship('Reviews', backref='places', lazy=True)
 
 class Reviews(db.Model):
-    id = db.Column(db.String(), unique=True, nullable=False, primary_key=True) # CHECK TYPE
-    placeId = db.Column(db.String(20), nullable=False)
-    userId = db.Column(db.String(32), nullable=False)
+    id = db.Column(db.String(42), unique=True, nullable=False, primary_key=True) # CHECK TYPE
+    placeId = db.Column(db.String(20), db.ForeignKey('places.id'), nullable=False)
+    userId = db.Column(db.String(32), db.ForeignKey('users.id'), nullable=False)
     text = db.Column(db.String(255), nullable=False)
     created_on = db.Column(db.DateTime, server_default=db.func.now())
     updated_on = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
@@ -318,10 +320,9 @@ def delete_accout():
 def add_place():
     # Check if place exists in db
     if Places.query.filter_by(id=request.form['id']).first() != None:
-        print("duplicate place")
         return
 
-    # Inset user data into db
+    # Inset place data into db
     data = Places(id=request.form['id'], streetAddress=request.form['streetAddress'], suburb=request.form['suburb'],
                   state=request.form['state'], postCode=request.form['postCode'], country=request.form['country'],
                   lat=request.form['lat'], lon=request.form['lon'], name=request.form['name'], category=request.form['category'])
@@ -333,6 +334,25 @@ def add_place():
 @app.route('/reviews', methods=['POST'])
 def add_review():
     add_place()
+
+    # Generate uuid for review ID
+    id = str(uuid.uuid4())
+
+    # Get user ID
+    id_token = request.cookies.get("token")
+    auth = firebase.auth()
+    user = auth.get_account_info(id_token)
+    userId = user['users'][0]['localId']
+
+    # Inset review data into db
+    print("id = " + id)
+    print("placeId = " + request.form['id'])
+    print("userId = " + userId)
+    print("text = " + request.form['text'])
+    data = Reviews(id=id, placeId=request.form['id'], userId=userId, text=request.form['text'])
+
+    db.session.add(data)
+    db.session.commit()
 
     resp = make_response("Success")
     resp.status_code = 200
