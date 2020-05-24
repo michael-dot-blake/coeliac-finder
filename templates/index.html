@@ -386,15 +386,21 @@
                     </div>
                     <div class="modal-body">
                         <p id="placesModalAddress">Address</p>
-                        <hr>
-                        <div id="placesStatus" class="ajaxStatus">
+                        <div id="placeModalStatus" class="ajaxStatus">
                             <!-- Add review status will display here -->
                         </div>
                         <label for="placesText">Review</label>
                         <textarea class="form-control" id="placesText" rows="3" maxlength="255" required></textarea>
+                        <hr>
+                        <div id="reviews">
+                            <!-- Reviews will appear here -->
+                        </div>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" form="placesForm" class="btn btn-primary" name="placesSubmit" id="placesSubmit" value="Submit">Submit</button>
+                        <div id="placeId" hidden>Place ID</div>
+                        {% if user_data: %}
+                        <button type="button" form="placesForm" class="btn btn-primary" name="placesSubmit" id="placesSubmit" value="Submit">Submit</button> {% else %}
+                        <button type="button" form="placesForm" class="btn btn-primary" name="placesSubmit" id="placesSubmit" value="Submit" disabled>Submit</button> {% endif %}
                     </div>
                 </form>
             </div>

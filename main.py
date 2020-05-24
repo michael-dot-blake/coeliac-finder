@@ -9,9 +9,10 @@ import os
 from urllib.error import HTTPError
 import json
 from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
+from flask_marshmallow import Marshmallow, fields
 from flask.json import jsonify
 import uuid
+from sqlalchemy.orm.strategy_options import joinedload
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "coeliacfinder-ad558fd97c1d.json"
 
@@ -73,8 +74,10 @@ class Reviews(db.Model):
                    primary_key=True)  # CHECK TYPE
     placeId = db.Column(db.String(20), db.ForeignKey(
         'places.id'), nullable=False)
+    place = db.relationship("Places", backref="places")
     userId = db.Column(db.String(32), db.ForeignKey(
         'users.id'), nullable=False)
+    user = db.relationship("Users", backref="users")
     text = db.Column(db.String(255), nullable=False)
     created_on = db.Column(db.DateTime, server_default=db.func.now())
     updated_on = db.Column(
@@ -82,18 +85,34 @@ class Reviews(db.Model):
 
 db.create_all()
 
+class SmartNested(ma.Nested): 
+    def serialize(self, attr, obj, accessor=None):
+        if attr not in obj.__dict__:
+            return {"id": int(getattr(obj, attr + "_id"))}
+        return super(SmartNested, self).serialize(attr, obj, accessor)
+
 class UsersSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Users
+        include_relationships = True
+        load_instance = True
 
-
-class PlacesSchema(ma.SQLAlchemyAutoSchema):
-    class Meta:
-        model = Places
+    # reviews = ma.Nested(ReviewsSchema)
 
 class ReviewsSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Reviews
+        include_fk = True
+        load_instance = True
+    
+    user = ma.Nested(UsersSchema)
+
+class PlacesSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Places
+    
+    # reviews = ma.Nested(ReviewsSchema)
+
 
 # +=============================================================+
 # |                                                             |
@@ -353,6 +372,7 @@ def add_place():
 
 @app.route('/reviews', methods=['POST'])
 def add_review():
+    print(request.form['id'])
     add_place()
 
     # Generate uuid for review ID
@@ -381,8 +401,19 @@ def get_all_places():
     places = Places.query.all()
     places_schema = PlacesSchema(many=True)
     output = places_schema.dump(places)
+
     resp = jsonify({'places': output})
-    
+    resp.status_code = 200
+    resp.content_type = "application/json"
+    return resp
+
+@app.route('/reviews/places/<placeId>')
+def get_reviews_place(placeId):
+    reviews = Reviews.query.filter_by(placeId=placeId).all()
+    reviews_schema = ReviewsSchema(many=True)
+    output = reviews_schema.dump(reviews)
+
+    resp = jsonify({'reviews': output})
     resp.status_code = 200
     resp.content_type = "application/json"
     return resp

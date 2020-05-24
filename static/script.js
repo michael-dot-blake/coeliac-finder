@@ -282,6 +282,8 @@ $("#addReviewSubmit").click(function() {
         },
         success: function(data) {
             $("#addReviewStatus").html('<div class=\"alert alert-success\">' + data + '</div>')
+
+            location.reload();
         }
     })
 });
@@ -294,6 +296,52 @@ function validateAddReview() {
         $("#addReviewStatus").html("");
         return true
     }
+}
+
+$("#placesSubmit").click(function() {
+    var form = $(this.form)[0]
+    if (form.checkValidity() === false) {
+        form.classList.add('was-validated');
+        return;
+    }
+
+    var id = $("#placeId").html();
+
+    $.ajax({
+        url: "reviews",
+        method: "POST",
+        data: {
+            id: id,
+            text: $("#placesText").val()
+        },
+        beforeSend: function() {
+            $("#placeModalStatus").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>')
+        },
+        success: function(data) {
+            $("#placeModalStatus").html('<div class=\"alert alert-success\">' + data + '</div>')
+
+            loadReviews(id);
+        }
+    })
+});
+
+function loadReviews(id) {
+    // Clear div
+    $("#reviews").html("");
+
+    $.ajax({
+        url: "reviews/places/" + id,
+        method: "GET",
+        beforeSend: function() {
+            $("#placeModalStatus").html('<div class="alert alert-secondary"><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div></div>')
+        },
+        success: function(data) {
+            $("#placeModalStatus").html("");
+            data.reviews.forEach(review => {
+                $("#reviews").append(`<div class="card mb-1"><div class="card-body"><h5 class="card-title">${review.user.username}</h5><h6 class="card-subtitle mb-2 text-muted">${review.created_on}</h6><p class="card-text">${review.text}</p></div></div>`)
+            });
+        },
+    });
 }
 
 // +=============================================================+
@@ -324,4 +372,6 @@ $('.modal').on('hidden.bs.modal', function() {
     $("#signupConfirmPassword")[0].classList.remove('is-invalid');
     $("#signupPassword")[0].classList.remove('is-valid');
     $("#signupPassword")[0].classList.remove('is-invalid');
+
+    $("#reviews").html("");
 });
